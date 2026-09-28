@@ -1,0 +1,220 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import logoImage from "../assets/beauty-blend-lab-logo-web.png";
+import lipstickImage from "../assets/stock/lipstick-flatlay-unsplash.jpg";
+import foundationImage from "../assets/stock/foundation-palette-unsplash.jpg";
+import applicationImage from "../assets/stock/lipstick-application-unsplash.jpg";
+import toolsImage from "../assets/stock/makeup-tools-unsplash.jpg";
+import brushesImage from "../assets/stock/makeup-brushes-unsplash.jpg";
+
+const phoneDisplay = "(845) 670-8740";
+const phoneHref = "tel:+18456708740";
+const title = "Beauty Blend Lab | Custom Makeup Made for You";
+const description =
+  "Custom lipstick and foundation shades blended by Estela Schmidt, NY Licensed Esthetician. Your shade, your style, your formula.";
+
+const services = [
+  {
+    title: "Custom Lipstick",
+    eyebrow: "Your color, your finish",
+    image: lipstickImage,
+    alt: "A lipstick on a clean white surface",
+    copy:
+      "A personalized lip shade built around undertone, wardrobe, finish, pigment depth, and comfort.",
+    points: ["Cream, matte, sheer, or glossy", "Custom pigment balance", "Wear and pairing guidance"]
+  },
+  {
+    title: "Custom Foundation",
+    eyebrow: "Your exact complexion match",
+    image: foundationImage,
+    alt: "Foundation palette and makeup on a soft rose surface",
+    copy:
+      "A complexion blend adjusted for tone, undertone, coverage, skin feel, and everyday wear.",
+    points: ["Tone and undertone match", "Light to full coverage", "Seasonal shade adjustments"]
+  }
+];
+
+const benefits = [
+  { title: "Clean Direction", copy: "Cruelty free, paraben free, sulfate free, and made without phthalates or GMOs." },
+  { title: "Made One-to-One", copy: "Each blend starts with your coloring, preferences, and beauty routine." },
+  { title: "Practical Finish", copy: "You leave with a wearable shade and clear guidance for using it well." }
+];
+
+const process = [
+  { label: "01", title: "Consult", copy: "Review skin tone, undertone, desired finish, and reference shades." },
+  { label: "02", title: "Blend", copy: "Adjust pigment, depth, coverage, texture, and comfort in small steps." },
+  { label: "03", title: "Finalize", copy: "Test the shade, refine the formula, and prepare it for daily wear." }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  name: "Beauty Blend Lab",
+  description,
+  telephone: "+1-845-670-8740",
+  areaServed: {
+    "@type": "State",
+    name: "New York"
+  },
+  founder: {
+    "@type": "Person",
+    name: "Estela Schmidt",
+    jobTitle: "NY Licensed Esthetician"
+  },
+  slogan: "Blend your Beauty Today",
+  makesOffer: services.map((service) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: service.title,
+      description: service.copy
+    }
+  }))
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="brand-mark" href="/" aria-label="Beauty Blend Lab home">
+      <Image src={logoImage} alt="" class="brand-logo-img" loading="eager" decoding="async" />
+      <span>
+        <strong>Beauty Blend Lab</strong>
+        <small>Blend your Beauty Today</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Site navigation">
+      <a href="#services">Services</a>
+      <a href="#formula">Formula</a>
+      <a href="#appointment">Appointment</a>
+    </nav>
+    <a class="header-phone" href={phoneHref} aria-label={`Call Beauty Blend Lab at ${phoneDisplay}`}>
+      {phoneDisplay}
+    </a>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-label="Beauty Blend Lab custom makeup">
+      <div class="hero-inner">
+        <div class="hero-copy-block">
+          <p class="eyebrow" data-animate>NY Licensed Esthetician &middot; Estela Schmidt</p>
+          <h1 class="hero-title" aria-label="Custom Makeup Made for You">
+            <span data-reveal-line>Custom Makeup</span>
+            <span data-reveal-line><em>Made for You</em></span>
+          </h1>
+          <p class="hero-line" data-animate>Your shade. Your style. Your formula.</p>
+          <p class="hero-copy" data-animate>
+            Personalized lipstick and foundation blended around your undertone, skin needs,
+            coverage preference, and daily routine.
+          </p>
+          <div class="hero-actions" data-animate>
+            <a class="button button-primary" href={phoneHref}>Call Estela</a>
+            <a class="button button-secondary" href="#services">View Services</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-animate>
+          <Image
+            src={applicationImage}
+            alt="Lip color being applied during a makeup appointment"
+            class="hero-media hero-media-main"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            quality={88}
+          />
+          <Image
+            src={toolsImage}
+            alt="Makeup tools and foundation powder on a white surface"
+            class="hero-media hero-media-small"
+            loading="eager"
+            decoding="async"
+            quality={84}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section section-pad" id="services">
+      <div class="section-heading compact-heading">
+        <p class="section-kicker" data-animate>Custom cosmetics</p>
+        <h2 class="section-title" data-animate>Two focused services. One personal result.</h2>
+      </div>
+      <div class="service-grid">
+        {services.map((service) => (
+          <article class="service-card" data-animate>
+            <Image src={service.image} alt={service.alt} class="service-image" loading="lazy" decoding="async" />
+            <div class="service-copy">
+              <p class="service-eyebrow">{service.eyebrow}</p>
+              <h3>{service.title}</h3>
+              <p>{service.copy}</p>
+              <ul aria-label={`${service.title} details`}>
+                {service.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="formula-section" id="formula">
+      <div class="formula-media">
+        <Image src={brushesImage} alt="Makeup brushes arranged in a professional kit" loading="lazy" decoding="async" />
+      </div>
+      <div class="formula-copy">
+        <p class="section-kicker" data-animate>Mix it, blend it, shake it &amp; wear it</p>
+        <h2 class="section-title" data-animate>Clean, custom, and easy to wear.</h2>
+        <div class="benefit-grid">
+          {benefits.map((benefit) => (
+            <article class="benefit-card" data-animate>
+              <span aria-hidden="true"></span>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section section-pad">
+      <div class="section-heading compact-heading">
+        <p class="section-kicker" data-animate>The appointment</p>
+        <h2 class="section-title" data-animate>Simple, guided, and personal.</h2>
+      </div>
+      <div class="process-grid">
+        {process.map((step) => (
+          <article class="process-step" data-animate>
+            <span>{step.label}</span>
+            <h3>{step.title}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="appointment-section" id="appointment">
+      <div class="appointment-inner">
+        <div>
+          <p class="section-kicker" data-animate>Make your appointment today</p>
+          <h2 class="appointment-title" data-animate>Ready for a shade made around you?</h2>
+        </div>
+        <a class="appointment-phone" href={phoneHref} data-animate aria-label={`Call Estela Schmidt at ${phoneDisplay}`}>
+          <span>Call</span>
+          {phoneDisplay}
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; {new Date().getFullYear()} Beauty Blend Lab. NY Licensed Esthetician Estela Schmidt.</p>
+    <a href={phoneHref}>{phoneDisplay}</a>
+  </footer>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script>
+    import "../scripts/motion";
+  </script>
+</BaseLayout>

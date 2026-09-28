@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const phoneDisplay = "(845) 670-8740";
+---
+
+<BaseLayout
+  title="Page Not Found | Estela Schmidt"
+  description="The page you requested could not be found."
+  noIndex
+>
+  <main class="not-found" id="main">
+    <p class="section-kicker">404</p>
+    <h1>That shade is not on this page.</h1>
+    <p>
+      Return to the custom cosmetics experience or call Estela directly at
+      <a href="tel:+18456708740">{phoneDisplay}</a>.
+    </p>
+    <a class="button button-primary" href="/">Back Home</a>
+  </main>
+</BaseLayout>
