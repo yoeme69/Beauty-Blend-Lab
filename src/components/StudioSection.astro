@@ -1,0 +1,182 @@
+---
+import { Image } from "astro:assets";
+import swatches from "../assets/estela/lip-color-swatches-retouched.png";
+import videoPoster from "../assets/estela/color-blending-detail-poster.jpg";
+import mixing from "../assets/estela/lip-color-mixing-retouched.png";
+---
+
+<section class="studio-section section-pad" id="studio" aria-labelledby="studio-title">
+  <div class="section-heading compact-heading">
+    <p class="section-kicker" data-animate>Behind the blend</p>
+    <div>
+      <h2 class="section-title" id="studio-title" data-animate>A little pigment.<br />A personal shade.</h2>
+      <p class="studio-intro" data-animate>
+        A closer look at the hands-on process: adding pigment, exploring shades,
+        and testing color on skin.
+      </p>
+    </div>
+  </div>
+
+  <div class="studio-media-grid">
+    <div class="studio-process-column">
+    <figure class="studio-feature">
+      <div class="studio-video-wrap">
+        <video
+          controls
+          playsinline
+          muted
+          preload="none"
+          poster={videoPoster.src}
+          width="478"
+          height="400"
+          aria-label="A look at the custom lip color blending process"
+          aria-describedby="studio-video-description"
+          data-video="estela-color-blending"
+        >
+          <source src="/videos/estela-color-blending-detail.mp4" type="video/mp4" />
+          <a href="/videos/estela-color-blending-detail.mp4">Watch the color blending video</a>.
+        </video>
+      </div>
+      <figcaption id="studio-video-description">
+        <span class="studio-number">01 / In motion</span>
+        <h3>Color, drop by drop.</h3>
+        <p>A brief, silent look at pigment being added to the mixing palette.</p>
+      </figcaption>
+    </figure>
+
+    <figure class="studio-feature studio-mixing">
+      <Image
+        src={mixing}
+        alt="A spatula blending a custom brick-red lip color on a mixing palette"
+        widths={[480, 720]}
+        sizes="(max-width: 720px) calc(100vw - 2rem), 400px"
+        quality={85}
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>
+        <span class="studio-number">02 / The blend</span>
+        <h3>Mixed with intention.</h3>
+      </figcaption>
+    </figure>
+    </div>
+
+    <figure class="studio-feature">
+      <Image
+        src={swatches}
+        alt="Six custom lip color swatches on the back of a hand, beside red pigment and mixed shades on a work surface"
+        class="studio-photo"
+        widths={[480, 720, 1080]}
+        sizes="(max-width: 720px) calc(100vw - 2rem), 500px"
+        quality={85}
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>
+        <span class="studio-number">03 / On the skin</span>
+        <h3>See the shade come to life.</h3>
+        <p>From the mixing palette to a skin swatch, each color has its own character.</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .studio-section {
+    background: #f4e7e4;
+    border-block: 1px solid rgba(141, 24, 56, 0.12);
+    scroll-margin-top: calc(var(--header-height) + 1rem);
+  }
+
+  .studio-intro {
+    max-width: 35rem;
+    margin: 1.2rem 0 0;
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+
+  .studio-media-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 2rem);
+    width: min(900px, 100%);
+    margin: 0 auto;
+  }
+
+  .studio-feature {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .studio-process-column {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  .studio-mixing img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .studio-video-wrap {
+    overflow: hidden;
+    border-radius: 8px;
+    background: #35222a;
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 478 / 400;
+  }
+
+  video:focus-visible {
+    outline: 3px solid var(--color-berry);
+    outline-offset: -3px;
+  }
+
+  .studio-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  figcaption {
+    padding: 1.3rem 0 0;
+  }
+
+  .studio-number {
+    color: var(--color-berry);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  h3 {
+    margin: 0.5rem 0 0;
+    color: var(--color-wine);
+    font: 600 clamp(1.8rem, 2.5vw, 2.3rem) / 1.1 "Cormorant Garamond", Georgia, serif;
+  }
+
+  figcaption p {
+    margin: 0.6rem 0 0;
+    max-width: 31rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 720px) {
+    .studio-media-grid {
+      grid-template-columns: 1fr;
+      max-width: 440px;
+      gap: 2.5rem;
+    }
+  }
+</style>

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://estela-schmidt.pages.dev/sitemap.xml

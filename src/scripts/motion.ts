@@ -35,9 +35,8 @@ if (!prefersReducedMotion) {
       });
     });
 
-  gsap.to(".hero-media", {
-    yPercent: 8,
-    scale: 1.04,
+  gsap.to(".hero-portrait", {
+    scale: 1.035,
     ease: "none",
     scrollTrigger: {
       trigger: ".hero",

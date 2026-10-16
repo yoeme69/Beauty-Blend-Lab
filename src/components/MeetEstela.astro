@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import portrait from "../assets/estela/estela-portrait-source.jpg";
+---
+
+<section class="estela-note" id="estela" aria-labelledby="estela-note-title">
+  <div class="estela-note-inner" data-animate>
+    <Image src={portrait} alt="Estela Schmidt smiling as she holds a finished lipstick" class="estela-portrait" width={288} loading="lazy" decoding="async" quality={86} />
+    <div class="estela-words">
+      <h2 id="estela-note-title">The heart behind your shade</h2>
+      <blockquote>
+        <p>“Color is my passion. Finding your exact shade is where that passion becomes personal.”</p>
+      </blockquote>
+      <p class="estela-signature"><strong>Estela Schmidt</strong><span>Founder &amp; NY Licensed Esthetician</span></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .estela-note { padding: 3.3rem max(1.25rem, 5vw); background: #fffcf8; border-bottom: 1px solid #ecdcd5; }
+  .estela-note-inner { display: grid; grid-template-columns: 144px minmax(0, 1fr); align-items: center; gap: clamp(2rem, 4.5vw, 4rem); max-width: 960px; margin: auto; }
+  .estela-portrait { width: 144px; height: 176px; object-fit: cover; object-position: 50% 23%; border-radius: 72px; border: 4px solid #fff; box-shadow: 0 0 0 1px #ddc2b5; }
+  h2 { margin: 0 0 0.9rem; font: 600 0.65rem / 1.4 "Inter", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-berry); }
+  blockquote { margin: 0; }
+  blockquote p { margin: 0; color: var(--color-wine); font: 500 clamp(1.8rem, 3vw, 2.6rem) / 1.12 "Cormorant Garamond", Georgia, serif; letter-spacing: -0.02em; }
+  .estela-signature { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.35rem 1rem; margin: 1.2rem 0 0; }
+  .estela-signature strong { color: var(--color-wine); font: 600 1.4rem / 1.2 "Cormorant Garamond", Georgia, serif; }
+  .estela-signature span { color: var(--color-muted); font-size: 0.64rem; }
+  @media (max-width: 600px) {
+    .estela-note { padding-block: 2.5rem; }
+    .estela-note-inner { grid-template-columns: 1fr; gap: 1.4rem; text-align: center; max-width: 420px; }
+    .estela-portrait { width: 98px; height: 118px; margin: auto; }
+    blockquote p { font-size: 1.9rem; line-height: 1.18; }
+    .estela-signature { justify-content: center; flex-direction: column; align-items: center; }
+  }
+</style>

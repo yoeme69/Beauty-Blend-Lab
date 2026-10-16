@@ -1,0 +1,16 @@
+# Campaign imagery
+
+Generated using the built-in imagegen tool for the hero and service cards. These are illustrative campaign assets, not photos of actual clients or documented treatment results.
+
+- `signature-lip-color.png`: warm beauty portrait with a matching rose lipstick.
+- `foundation-shade-match.png`: foundation undertones compared on skin.
+
+Original stock assets are retained in `src/assets/stock/`.
+
+## lipEditorial
+
+Use case: photorealistic-natural / beauty campaign editorial. Create a compelling premium beauty photograph for a bespoke lipstick and foundation studio website. A confident adult woman around 35 with a warm medium olive complexion, expressive brown eyes, natural dark brown hair pulled back loosely, elegant understated makeup, satin berry-rose lips. Three-quarter portrait from head to upper chest, facing slightly left and looking toward the camera with a relaxed subtle smile. Her own anatomically correct hand holds a single unbranded open lipstick in a simple brushed silver tube near her chin, clearly showing the matching rosy berry bullet. Realistic pores and softly luminous skin, believable flattering finish, no plastic smoothing. The emotional focus is the pleasure of finding a lip shade that feels personal. Refined creamy blush-peach studio background, directional diffused late-afternoon light with beautiful sculptural shadows and warm skin depth, richer berry accent, editorial magazine quality, tactile and dimensional, NOT a flat catalogue image. Composition: face comfortably within frame, head and chin not cropped, lipstick visible in lower central-right area; frame vertically 4:5 around 1280x1600, suitable for an elegant website hero. One person and one lipstick only, no writing, no logos, no watermarks, no fake brand packaging, no jewelry clutter, no flowers. This is illustrative campaign imagery, not a testimonial or an identifiable real customer.
+
+## foundationEditorial
+
+Use case: photorealistic-natural / beauty campaign editorial. A luxurious close-up beauty photograph that visually explains choosing a personalized foundation shade. Tight composition of an adult woman's warm medium golden-brown cheek, lower eye, jaw and neck, with three small neatly applied creamy foundation swatches in subtly different undertones along the side of her jaw. A clean dense professional makeup brush held naturally by a makeup artist is gently blending ONE swatch at its lower edge into the skin. A convincing warm satin complexion with real fine pores and texture, healthy not overly airbrushed. The photo must communicate matching foundation to skin rather than generic tools laid on a table. Skin and three swatches in sharp focus, correct face and hand anatomy, soft luminous cream-peach background, subtle warm blush highlights, sculptural soft studio lighting, premium editorial cosmetics advertising, real photographic depth and dimensionality. Landscape 4:3 around 1440x1080. Keep all three swatches and brush contact in the central 70 percent so a website card can crop safely. No lettering, no logos, no packaging, no watermark, no before-and-after split, no exaggerated skin change. Illustrative campaign image, not an actual client result.

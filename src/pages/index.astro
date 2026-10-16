@@ -1,34 +1,42 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import StudioSection from "../components/StudioSection.astro";
+import HeroSection from "../components/HeroSection.astro";
+import MeetEstela from "../components/MeetEstela.astro";
 import logoImage from "../assets/beauty-blend-lab-logo-web.png";
-import lipstickImage from "../assets/stock/lipstick-flatlay-unsplash.jpg";
-import foundationImage from "../assets/stock/foundation-palette-unsplash.jpg";
-import applicationImage from "../assets/stock/lipstick-application-unsplash.jpg";
-import toolsImage from "../assets/stock/makeup-tools-unsplash.jpg";
-import brushesImage from "../assets/stock/makeup-brushes-unsplash.jpg";
+import lipstickImage from "../assets/campaign/signature-lip-color.png";
+import foundationImage from "../assets/campaign/foundation-shade-match.png";
+import pigmentsImage from "../assets/estela/pigment-bottles-retouched.png";
+import { siteConfig } from "../config/site";
 
 const phoneDisplay = "(845) 670-8740";
 const phoneHref = "tel:+18456708740";
-const title = "Beauty Blend Lab | Custom Makeup Made for You";
-const description =
-  "Custom lipstick and foundation shades blended by Estela Schmidt, NY Licensed Esthetician. Your shade, your style, your formula.";
+const { title, description } = siteConfig;
 
 const services = [
   {
+    id: "custom-lipstick",
     title: "Custom Lipstick",
     eyebrow: "Your color, your finish",
     image: lipstickImage,
-    alt: "A lipstick on a clean white surface",
+    alt: "Rose lip color paired with a matching lipstick",
+    imagePosition: "50% 62%",
+    action: "Find my lip color",
+    message: "Hi Estela! I'd like to create my own custom lipstick shade.",
     copy:
       "A personalized lip shade built around undertone, wardrobe, finish, pigment depth, and comfort.",
     points: ["Cream, matte, sheer, or glossy", "Custom pigment balance", "Wear and pairing guidance"]
   },
   {
+    id: "custom-foundation",
     title: "Custom Foundation",
     eyebrow: "Your exact complexion match",
     image: foundationImage,
-    alt: "Foundation palette and makeup on a soft rose surface",
+    alt: "Foundation undertones being compared and blended on skin",
+    imagePosition: "50% 55%",
+    action: "Find my foundation match",
+    message: "Hi Estela! I'd like a personalized foundation shade consultation.",
     copy:
       "A complexion blend adjusted for tone, undertone, coverage, skin feel, and everyday wear.",
     points: ["Tone and undertone match", "Light to full coverage", "Seasonal shade adjustments"]
@@ -47,34 +55,85 @@ const process = [
   { label: "03", title: "Finalize", copy: "Test the shade, refine the formula, and prepare it for daily wear." }
 ];
 
+const absoluteUrl = (path: string) => new URL(path, siteConfig.url).href;
+const organizationId = absoluteUrl("#organization");
+const websiteId = absoluteUrl("#website");
+const personId = absoluteUrl("#estela");
+const imageId = absoluteUrl("#primaryimage");
 const schema = {
   "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  name: "Beauty Blend Lab",
-  description,
-  telephone: "+1-845-670-8740",
-  areaServed: {
-    "@type": "State",
-    name: "New York"
-  },
-  founder: {
-    "@type": "Person",
-    name: "Estela Schmidt",
-    jobTitle: "NY Licensed Esthetician"
-  },
-  slogan: "Blend your Beauty Today",
-  makesOffer: services.map((service) => ({
-    "@type": "Offer",
-    itemOffered: {
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description,
+      logo: absoluteUrl(siteConfig.logo),
+      image: absoluteUrl(siteConfig.socialImage.path),
+      telephone: "+1-845-670-8740",
+      areaServed: siteConfig.serviceArea,
+      founder: { "@id": personId },
+      slogan: "Blend your Beauty Today",
+      makesOffer: services.map((service) => ({
+        "@type": "Offer",
+        url: absoluteUrl(`#${service.id}`),
+        itemOffered: { "@id": absoluteUrl(`#${service.id}`) }
+      }))
+    },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Estela Schmidt",
+      url: absoluteUrl("#estela"),
+      jobTitle: "NY Licensed Esthetician",
+      worksFor: { "@id": organizationId }
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      inLanguage: siteConfig.language,
+      publisher: { "@id": organizationId }
+    },
+    {
+      "@type": "WebPage",
+      "@id": absoluteUrl("#webpage"),
+      url: siteConfig.url,
+      name: title,
+      description,
+      inLanguage: siteConfig.language,
+      dateModified: siteConfig.lastModified,
+      isPartOf: { "@id": websiteId },
+      about: { "@id": organizationId },
+      primaryImageOfPage: { "@id": imageId },
+      mainEntity: services.map((service) => ({ "@id": absoluteUrl(`#${service.id}`) }))
+    },
+    {
+      "@type": "ImageObject",
+      "@id": imageId,
+      url: absoluteUrl(siteConfig.socialImage.path),
+      contentUrl: absoluteUrl(siteConfig.socialImage.path),
+      width: siteConfig.socialImage.width,
+      height: siteConfig.socialImage.height,
+      caption: siteConfig.socialImage.alt
+    },
+    ...services.map((service) => ({
       "@type": "Service",
+      "@id": absoluteUrl(`#${service.id}`),
+      url: absoluteUrl(`#${service.id}`),
       name: service.title,
-      description: service.copy
-    }
-  }))
+      description: service.copy,
+      serviceType: service.title,
+      areaServed: siteConfig.serviceArea,
+      provider: { "@id": organizationId }
+    }))
+  ]
 };
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} socialTitle={siteConfig.socialTitle}>
   <header class="site-header" aria-label="Primary navigation">
     <a class="brand-mark" href="/" aria-label="Beauty Blend Lab home">
       <Image src={logoImage} alt="" class="brand-logo-img" loading="eager" decoding="async" />
@@ -85,6 +144,7 @@ const schema = {
     </a>
     <nav class="nav-links" aria-label="Site navigation">
       <a href="#services">Services</a>
+      <a href="#studio">The Studio</a>
       <a href="#formula">Formula</a>
       <a href="#appointment">Appointment</a>
     </nav>
@@ -94,56 +154,19 @@ const schema = {
   </header>
 
   <main id="main">
-    <section class="hero" aria-label="Beauty Blend Lab custom makeup">
-      <div class="hero-inner">
-        <div class="hero-copy-block">
-          <p class="eyebrow" data-animate>NY Licensed Esthetician &middot; Estela Schmidt</p>
-          <h1 class="hero-title" aria-label="Custom Makeup Made for You">
-            <span data-reveal-line>Custom Makeup</span>
-            <span data-reveal-line><em>Made for You</em></span>
-          </h1>
-          <p class="hero-line" data-animate>Your shade. Your style. Your formula.</p>
-          <p class="hero-copy" data-animate>
-            Personalized lipstick and foundation blended around your undertone, skin needs,
-            coverage preference, and daily routine.
-          </p>
-          <div class="hero-actions" data-animate>
-            <a class="button button-primary" href={phoneHref}>Call Estela</a>
-            <a class="button button-secondary" href="#services">View Services</a>
-          </div>
-        </div>
+    <HeroSection />
 
-        <div class="hero-visual" data-animate>
-          <Image
-            src={applicationImage}
-            alt="Lip color being applied during a makeup appointment"
-            class="hero-media hero-media-main"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            quality={88}
-          />
-          <Image
-            src={toolsImage}
-            alt="Makeup tools and foundation powder on a white surface"
-            class="hero-media hero-media-small"
-            loading="eager"
-            decoding="async"
-            quality={84}
-          />
-        </div>
-      </div>
-    </section>
+    <MeetEstela />
 
     <section class="services-section section-pad" id="services">
       <div class="section-heading compact-heading">
         <p class="section-kicker" data-animate>Custom cosmetics</p>
-        <h2 class="section-title" data-animate>Two focused services. One personal result.</h2>
+        <h2 class="section-title" data-animate>Your next favorite.<br />Made just for you.</h2>
       </div>
       <div class="service-grid">
         {services.map((service) => (
-          <article class="service-card" data-animate>
-            <Image src={service.image} alt={service.alt} class="service-image" loading="lazy" decoding="async" />
+          <article class="service-card" id={service.id} data-animate>
+            <Image src={service.image} alt={service.alt} class="service-image" style={`object-position: ${service.imagePosition}`} widths={[480, 720, 1120]} sizes="(max-width: 1020px) 90vw, 540px" quality={84} loading="lazy" decoding="async" />
             <div class="service-copy">
               <p class="service-eyebrow">{service.eyebrow}</p>
               <h3>{service.title}</h3>
@@ -153,15 +176,20 @@ const schema = {
                   <li>{point}</li>
                 ))}
               </ul>
+              <a class="service-action" href={`https://wa.me/18456708740?text=${encodeURIComponent(service.message)}`} target="_blank" rel="noopener noreferrer" data-contact="whatsapp" data-contact-placement="service" aria-label={`${service.action}: chat with Estela on WhatsApp (opens in a new tab)`}>
+                {service.action}<span aria-hidden="true">↗</span>
+              </a>
             </div>
           </article>
         ))}
       </div>
     </section>
 
+    <StudioSection />
+
     <section class="formula-section" id="formula">
       <div class="formula-media">
-        <Image src={brushesImage} alt="Makeup brushes arranged in a professional kit" loading="lazy" decoding="async" />
+        <Image src={pigmentsImage} alt="Six bottles of lip pigment in blueberry, sapphire, marigold, ochre, black, and white" widths={[640, 960, 1280]} sizes="(max-width: 1020px) 100vw, 46vw" quality={85} loading="lazy" decoding="async" />
       </div>
       <div class="formula-copy">
         <p class="section-kicker" data-animate>Mix it, blend it, shake it &amp; wear it</p>
@@ -197,7 +225,7 @@ const schema = {
     <section class="appointment-section" id="appointment">
       <div class="appointment-inner">
         <div>
-          <p class="section-kicker" data-animate>Make your appointment today</p>
+          <p class="section-kicker" data-animate>New York &middot; By appointment</p>
           <h2 class="appointment-title" data-animate>Ready for a shade made around you?</h2>
         </div>
         <a class="appointment-phone" href={phoneHref} data-animate aria-label={`Call Estela Schmidt at ${phoneDisplay}`}>
@@ -213,7 +241,7 @@ const schema = {
     <a href={phoneHref}>{phoneDisplay}</a>
   </footer>
 
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, "\\u003c")} />
   <script>
     import "../scripts/motion";
   </script>

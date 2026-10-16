@@ -1,7 +1,8 @@
 import { defineConfig } from "astro/config";
+import { siteConfig } from "./src/config/site.ts";
 
 export default defineConfig({
-  site: "https://estela-schmidt.pages.dev",
+  site: siteConfig.url,
   output: "static",
   build: {
     format: "directory",
